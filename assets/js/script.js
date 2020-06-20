@@ -201,6 +201,7 @@ var dropZoneDragHandler = function(event) {
   var taskListEl = event.target.closest(".task-list");
   if (taskListEl) {
     event.preventDefault();
+    taskListEl.setAttribute("style", "background: rgba(68, 233, 255, 0.7); border-style: dashed;");
   }
 };
 
@@ -225,10 +226,18 @@ var dropTaskHandler = function(event) {
     statusSelectEl.selectedIndex = 2;
   }
 
-  dropZoneEl.appendChild(draggableElement);
+  dropZoneEl.removeAttribute("style");
 
+  dropZoneEl.appendChild(draggableElement);
 };
 
+
+  var dragLeaveHandler = function(event) {
+    var taskListEl = event.target.closest(".task-list");
+      if (taskListEl) {
+      taskListEl.removeAttribute("style");
+    }
+}
 
 
   pageContentEl.addEventListener("click", taskButtonHandler);
@@ -240,6 +249,9 @@ var dropTaskHandler = function(event) {
   pageContentEl.addEventListener("dragover", dropZoneDragHandler);
 
   pageContentEl.addEventListener("drop", dropTaskHandler);
+
+  pageContentEl.addEventListener("dragleave", dragLeaveHandler);
+
 
 
 
